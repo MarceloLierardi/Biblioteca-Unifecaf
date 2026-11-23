@@ -23,6 +23,17 @@ html {
 }
 
 body {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+main {
+	flex-grow: 1;
+	background-color: var(--claro);
+}
+
+body {
 	font-family: var(--fonte);
 	font-size: 1rem;
 	line-height: 1.6;
@@ -68,6 +79,7 @@ summary:focus-visible {
 }
 
 .cabecalho {
+	view-transition-name: cabecalho;
 	position: sticky;
 	top: 0;
 	z-index: 50;
@@ -183,7 +195,8 @@ summary:focus-visible {
 	margin-bottom: 1rem;
 }
 
-.banner h2 {
+.banner h2,
+.banner--leitura h1 {
 	font-size: 1.6rem;
 	letter-spacing: 0.1em;
 	text-transform: uppercase;
@@ -388,6 +401,63 @@ summary:focus-visible {
 	text-align: center;
 }
 
+.rodape__contato {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.5rem;
+	padding-bottom: 1rem;
+	margin-bottom: 1rem;
+	border-bottom: 0.06rem solid rgba(255, 255, 255, 0.2);
+	overflow-wrap: anywhere;
+}
+
+.rodape__contato a {
+	color: var(--verde);
+	font-weight: 600;
+}
+
+.rodape__link {
+	display: inline-block;
+	padding: 0.35rem 1rem;
+	border: 0.1rem solid var(--verde);
+	border-radius: 2rem;
+	text-decoration: none;
+}
+
+.rodape__link:hover {
+	background-color: var(--verde);
+	color: var(--escuro) !important;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	@view-transition {
+		navigation: auto;
+	}
+
+	::view-transition-old(root) {
+		animation: 0.25s ease-in both sair-pagina;
+	}
+
+	::view-transition-new(root) {
+		animation: 0.35s ease-out both entrar-pagina;
+	}
+}
+
+@keyframes sair-pagina {
+	to {
+		opacity: 0;
+		transform: translateX(-2rem);
+	}
+}
+
+@keyframes entrar-pagina {
+	from {
+		opacity: 0;
+		transform: translateX(2rem);
+	}
+}
+
 @media (min-width: 600px) {
 	.livros__grade {
 		grid-template-columns: repeat(2, 1fr);
@@ -437,6 +507,12 @@ summary:focus-visible {
 
 	.contatos__grade {
 		grid-template-columns: 2fr 1fr;
+	}
+
+	.rodape__contato {
+		flex-direction: row;
+		justify-content: center;
+		gap: 1.5rem;
 	}
 }
 
